@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WizLib_DataAcces.Data;
 
@@ -11,9 +12,10 @@ using WizLib_DataAcces.Data;
 namespace WizLib_DataAcces.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220504183404_AddetReltionBookCategory")]
+    partial class AddetReltionBookCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,7 +60,7 @@ namespace WizLib_DataAcces.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Book_Id"), 1L, 1);
 
-                    b.Property<int>("BookDetail_Id")
+                    b.Property<int>("Category_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("ISBN")
@@ -75,32 +77,26 @@ namespace WizLib_DataAcces.Migrations
 
                     b.HasKey("Book_Id");
 
-                    b.HasIndex("BookDetail_Id")
-                        .IsUnique();
+                    b.HasIndex("Category_Id");
 
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("WizLib_Models.Models.BookDetail", b =>
+            modelBuilder.Entity("WizLib_Models.Models.Category", b =>
                 {
-                    b.Property<int>("BookDetail_Id")
+                    b.Property<int>("Category_Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookDetail_Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Category_Id"), 1L, 1);
 
-                    b.Property<int>("NumberOfChapters")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumberOfPages")
-                        .HasColumnType("int");
+                    b.HasKey("Category_Id");
 
-                    b.Property<double>("Weight")
-                        .HasColumnType("float");
-
-                    b.HasKey("BookDetail_Id");
-
-                    b.ToTable("BookDetail");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("WizLib_Models.Models.Genre", b =>
@@ -147,19 +143,13 @@ namespace WizLib_DataAcces.Migrations
 
             modelBuilder.Entity("WizLib_Models.Models.Book", b =>
                 {
-                    b.HasOne("WizLib_Models.Models.BookDetail", "BookDetail")
-                        .WithOne("Book")
-                        .HasForeignKey("WizLib_Models.Models.Book", "BookDetail_Id")
+                    b.HasOne("WizLib_Models.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("Category_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BookDetail");
-                });
-
-            modelBuilder.Entity("WizLib_Models.Models.BookDetail", b =>
-                {
-                    b.Navigation("Book")
-                        .IsRequired();
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }
