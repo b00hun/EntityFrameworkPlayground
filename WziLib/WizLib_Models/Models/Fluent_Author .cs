@@ -25,7 +25,7 @@ namespace WizLib_Models.Models
                 return $"{FirstName} {LastName}";
             }
         }
-        
+        public virtual ICollection<Fluent_BookAuthor> Fluent_BookAuthors { get; set; }
     }
 
 }
