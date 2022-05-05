@@ -20,8 +20,12 @@ namespace WizLib_Models.Models
        
         public double Price { get; set; }
 
-       
-       
+        public int BookDetail_Id { get; set; }
+
+        public Fluent_BookDetail Fluent_BookDetail { get; set; }
+
+
+
 
     }
 }

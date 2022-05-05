@@ -39,12 +39,17 @@ namespace WizLib_DataAcces.Data
             //BookDetails
             modelBuilder.Entity<Fluent_BookDetail>().HasKey(b=>b.BookDetail_Id);
             modelBuilder.Entity<Fluent_BookDetail>().Property(b=> b.NumberOfChapters).IsRequired();
+           
+            
 
             //Book
             modelBuilder.Entity<Fluent_Book>().HasKey(b=>b.Book_Id);
             modelBuilder.Entity<Fluent_Book>().Property(b=>b.ISBN).IsRequired().HasMaxLength(15);
             modelBuilder.Entity<Fluent_Book>().Property(b => b.Title).IsRequired();
             modelBuilder.Entity<Fluent_Book>().Property(b => b.Price).IsRequired();
+            //One to one Relation Book-bookDetail
+            modelBuilder.Entity<Fluent_Book>()
+                .HasOne(b => b.Fluent_BookDetail).WithOne(b => b.Fluent_Book).HasForeignKey<Fluent_Book>("BookDetail_Id");
 
             //Author
             modelBuilder.Entity<Fluent_Author>().HasKey(b => b.Author_Id);
@@ -60,6 +65,9 @@ namespace WizLib_DataAcces.Data
             //Category table name and coilumn name
             modelBuilder.Entity<Category>().ToTable("Tbl_Category");
             modelBuilder.Entity<Category>().Property(b => b.Name).HasColumnName("CategoryName");
+
+            //One to one Relation Book-bookDetail
+            
 
 
         }

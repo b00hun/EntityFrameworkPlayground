@@ -18,6 +18,8 @@ namespace WizLib_Models.Models
 
         public double Weight { get; set; }
 
+        public Fluent_Book  Fluent_Book { get; set; }
+
        
     }
 }
