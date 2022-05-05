@@ -15,7 +15,7 @@ namespace WizLib_DataAcces.Data
             
         }
 
-        //public DbSet<Category> Categories { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Book> Books { get; set; }
 
@@ -56,6 +56,10 @@ namespace WizLib_DataAcces.Data
             modelBuilder.Entity<Fluent_Publisher>().HasKey(b => b.Publisher_Id);
             modelBuilder.Entity<Fluent_Publisher>().Property(b=>b.Name).IsRequired();
             modelBuilder.Entity<Fluent_Publisher>().Property(b => b.Location).IsRequired();
+
+            //Category table name and coilumn name
+            modelBuilder.Entity<Category>().ToTable("Tbl_Category");
+            modelBuilder.Entity<Category>().Property(b => b.Name).HasColumnName("CategoryName");
 
 
         }
