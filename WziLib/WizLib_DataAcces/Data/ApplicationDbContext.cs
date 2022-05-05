@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WizLib_DataAcces.FluentConfig;
 using WizLib_Models.Models;
 
 namespace WizLib_DataAcces.Data
@@ -34,30 +35,18 @@ namespace WizLib_DataAcces.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Category>().ToTable("Tbl_Category");
+            modelBuilder.Entity<Category>().Property(b => b.Name).HasColumnName("CategoryName");
+
+
             modelBuilder.Entity<BookAuthor>().HasKey(ba => new { ba.Author_Id, ba.Book_Id });
             
-            //BookDetails
-            
            
-            
-
-            //Book
-           
-            
-            
-            
-            //Author
-            
-
-            //Publisher
-            
-
-            //Category table name and coilumn name
-            
-
-            //One to one Relation Book-bookDetail
-            
-
+            modelBuilder.ApplyConfiguration(new FluentBookConfig());
+            modelBuilder.ApplyConfiguration(new FluentPublisherConfig());
+            modelBuilder.ApplyConfiguration(new FluentBookDetailConfig());
+            modelBuilder.ApplyConfiguration(new FluentBookAuthorConfig());
+            modelBuilder.ApplyConfiguration(new FluentAuthorConfig());
 
         }
     }

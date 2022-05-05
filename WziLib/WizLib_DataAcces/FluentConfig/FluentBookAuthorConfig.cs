@@ -13,6 +13,7 @@ namespace WizLib_DataAcces.FluentConfig
     {
         public void Configure(EntityTypeBuilder<Fluent_BookAuthor> modelBuilder)
         {
+
             //Many to Many Book-Authors
             modelBuilder.HasKey(ba => new { ba.Author_Id, ba.Book_Id });
 
