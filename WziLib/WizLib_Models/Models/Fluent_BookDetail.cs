@@ -18,6 +18,6 @@ namespace WizLib_Models.Models
 
         public double Weight { get; set; }
 
-        public Book Book { get; set; }
+       
     }
 }
